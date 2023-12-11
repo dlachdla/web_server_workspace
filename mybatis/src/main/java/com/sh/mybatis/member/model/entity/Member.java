@@ -2,6 +2,7 @@ package com.sh.mybatis.member.model.entity;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Member {
     private String id;
@@ -12,14 +13,14 @@ public class Member {
     private LocalDate birthday;
     private String email;
     private String phone;
-    private String hobby;
+    private List<String> hobby;
     private int point;
     private LocalDate regDate;
 
     public Member() {
     }
 
-    public Member(String id, String password, String name, Role role, Gender gender, LocalDate birthday, String email, String phone, String hobby, int point, LocalDate regDate) {
+    public Member(String id, String password, String name, Role role, Gender gender, LocalDate birthday, String email, String phone, List<String> hobby, int point, LocalDate regDate) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -97,11 +98,11 @@ public class Member {
         this.phone = phone;
     }
 
-    public String getHobby() {
+    public List<String> getHobby() {
         return hobby;
     }
 
-    public void setHobby(String hobby) {
+    public void setHobby(List<String> hobby) {
         this.hobby = hobby;
     }
 
@@ -132,7 +133,7 @@ public class Member {
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", hobby='" + hobby + '\'' +
+                ", hobby='" + hobby +
                 ", point=" + point +
                 ", regDate=" + regDate +
                 '}';

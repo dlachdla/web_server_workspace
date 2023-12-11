@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                "https://mybatis.org/dtd/mybatis-3-config.dtd">
+        <!-- MyBatis config 설정임을 선언 -->
 <configuration>
+    <!-- 내부에 필요한 설정 작성 -->
     <properties resource="datasource.properties"></properties>
-
+    <!-- properties태그 : 외부 properties파일의 내용을 불러 올 때 사용 -->
     <settings>
         <!-- NULL데이터가 전달된 경우 NULL값으로 처리 -->
         <setting name="jdbcTypeForNull" value="NULL"/>
@@ -12,10 +14,36 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
+    <typeAliases>
+        <!--  <typeAlias type="com.sh.mybatis.member.model.entity.Member" alias="member"/>-->
+
+        <!--
+            package 하위 모든 클래스가 소문자로 시작되는 별칭으로 등록
+            - Member -> member
+            - MemberAddress -> memberAddress
+          -->
+        <package name="com.sh.mybatis"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.sh.mybatis.common.ListStringTypeHandler"/>
+    </typeHandlers>
+
+    <!-- settings태그 : MyBatis구동 시 선언 할 설정 작성 -->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
+            <!--
+                transactionManager 트랜잭션 관리 책임 설정
+                - JDBC datasource로부터 직접 connection을 가져와서 관리
+                - MANAGED 컨테이너(톰캣) 트랜잭션을 관리
+             -->
             <dataSource type="POOLED">
+                <!--
+                    POOLED DBCP설정(Database Connection Pool) 매번 Connection생성/폐기하면
+                    효율성이 떨어지므로, Connection 다수개를 생성해서 Pool에서 관리
+                    사용 후 반납하면, 폐기하지 않고 이후 재사용하게 된다.
+                -->
                 <property name="driver" value="${driver}"/>
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
@@ -23,8 +51,13 @@
             </dataSource>
         </environment>
     </environments>
-
+    <!-- environments태그 : MyBatis에서 연동할 DataBase 정보 등록 -->
+    <!--
+        여러 개의 DB를 등록하여 사용할 수 있음
+        build()메소드 구현 시 매개변수에 environment의 id를 설정하면 됨
+    -->
     <mappers>
         <mapper resource="mapper/member/member-mapper.xml"/>
     </mappers>
+    <!-- mappers태그 : 사용하고자 하는 쿼리문의 정의된 mapper파일 등록   -->
 </configuration>

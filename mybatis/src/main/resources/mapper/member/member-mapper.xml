@@ -2,18 +2,106 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis mapper 설정임을 선언 -->
 <mapper namespace="member">
+    <!--
+        외부에서 접근할 수 있는 이름인 namespace속성 기입,
+        이후 작성될 태그들은 <mapper>태그 안에 기록
+    -->
     <!--
         #{id} 전달된 id값으로 치환
         id 태그식별자
-        resultType ResultSet 한행이 변환될 타입(fullname | alias)
-      -->
-    <select id="findById" resultType="com.sh.mybatis.member.model.entity.Member">
+        resultType ResultSet한 행이 변환될 타입(fullname | alias)
+    -->
+    <select id="findById" resultType="member">
+        select
+            *
+        from
+             member
+        where
+             id = #{id}
+    </select>
+    <!--
+        select태그 : SQL의 조회구문을 작성 할 때 사용되는 태그,
+        해당 쿼리를 외부에서 접근하자고 할 때 namespace.id명을 적어 접근 가능
+    -->
+
+
+<!--
+    resultType 속성은 한행과 매칭되는 타입 작성
+ -->
+    <select id="findAll" resultType="member">
+        select
+            *
+        from
+            member
+        order by
+            reg_date desc
+    </select>
+
+    <select id="findByName" resultType="member">
+        select
+        *
+        from
+        member
+        where
+        name like '%' || #{name} || '%'
+    </select>
+
+    <select id="findByGender" resultType="member">
         select
             *
         from
             member
         where
-            id = #{id}
+            gender = #{gender}
     </select>
+
+    <insert id="insertMember">
+        insert into
+            member
+        values (
+            #{id}, #{password}, #{name}, #{role}, #{gender}, #{birthday}, #{email}, #{phone},
+            #{hobby, typeHandler=listStringTypeHandler}, default, default
+        )
+    </insert>
+
+    <update id="updateMember">
+        update
+            member
+        set
+            name = #{name},
+            gender = #{gender},
+            birthday = #{birthday},
+            email = #{email},
+            phone = #{phone}
+        where
+            id = #{id}
+    </update>
+
+    <update id="updateMemberPassWord">
+        update
+            member
+        set
+            password = #{password}
+        where
+            id = #{id}
+    </update>
+
+    <update id="updateMemberRole">
+        update
+            member
+        set
+            Role = #{role}
+        where
+            id = #{id}
+    </update>
+
+    <delete id="deleteMember">
+        delete from
+            member
+        where
+            id = #{id}
+    </delete>
+
 </mapper>
