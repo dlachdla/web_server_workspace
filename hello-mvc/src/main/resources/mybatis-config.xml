@@ -23,11 +23,11 @@
             - Member -> member
             - MemberAddress -> memberAddress
           -->
-        <package name="com.sh.mybatis"/>
+        <package name="com.sh.mvc"/>
     </typeAliases>
 
     <typeHandlers>
-        <typeHandler handler="com.sh.mybatis.common.ListStringTypeHandler"/>
+        <typeHandler handler="com.sh.mvc.common.ListStringTypeHandler"/>
     </typeHandlers>
 
 

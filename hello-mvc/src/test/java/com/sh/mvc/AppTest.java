@@ -1,5 +1,6 @@
-package com.sh.mybatis;
+package com.sh.mvc;
 
+import com.sh.mybatis.App;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *   3. TestRunner : 테스트주체
  */
 public class AppTest {
-    App app = new App();
+    App app;
 
     // fixture메소드
     @BeforeAll

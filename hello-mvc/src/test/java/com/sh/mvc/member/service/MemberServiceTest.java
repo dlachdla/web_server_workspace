@@ -1,8 +1,9 @@
-package com.sh.mybatis.member.model.service;
+package com.sh.mvc.member.service;
 
-import com.sh.mybatis.member.model.entity.Gender;
-import com.sh.mybatis.member.model.entity.Member;
-import com.sh.mybatis.member.model.entity.Role;
+import com.sh.mvc.member.model.service.MemberService;
+import com.sh.mvc.member.model.entity.Gender;
+import com.sh.mvc.member.model.entity.Member;
+import com.sh.mvc.member.model.entity.Role;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;

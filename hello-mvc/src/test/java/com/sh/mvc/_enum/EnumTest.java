@@ -1,4 +1,4 @@
-package com.sh.mybatis._enum;
+package com.sh.mvc._enum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
