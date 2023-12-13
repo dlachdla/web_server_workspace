@@ -63,7 +63,7 @@ public class MemberLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자입력값 인코딩처리
-        req.setCharacterEncoding("utf-8");
+      //  req.setCharacterEncoding("utf-8");
 
         // 2. 사용자입력값 가져오기
         String id = req.getParameter("id");
@@ -77,6 +77,8 @@ public class MemberLoginServlet extends HttpServlet {
         Member member = memberService.findById(id);
         System.out.println(member);
 
+        // 세션생성/가져오기
+        // getSession(), getSession(true) : 세션이 존재하지않으면 생성, 혹은 존재하는 세션을 반환
         HttpSession session = req.getSession();
         if (member != null && password.equals(member.getPassword())) {
             // 로그인 성공
@@ -91,7 +93,7 @@ public class MemberLoginServlet extends HttpServlet {
 
         // 4. view단처리 (forwarding) | redirect처리 (url변경 시)
         // DML 요청(post), 로그인요청등은 반드시 redirect로 처리해서 url을 변경해야한다.
-        resp.sendRedirect(req.getContextPath());
+        resp.sendRedirect(req.getContextPath() + "/"); // "/" = 불필요한 리다이렉트를 줄이기위해 경로를 하나더줌
     }
 }
 

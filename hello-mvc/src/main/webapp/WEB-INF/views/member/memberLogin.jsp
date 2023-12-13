@@ -2,10 +2,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <h1 class="mb-6 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                로그인
+            </h1>
             <form class="space-y-6" method="POST">
                 <div>
                     <label for="id" class="block text-sm font-medium leading-6 text-gray-900">아이디</label>

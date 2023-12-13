@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +17,7 @@
 
     <script>
         <c:if test="${msg != null}">
-            alert("${msg}");
+            alert(`${msg}`); // 여러줄 입력이 가능하도록 `(백틱)으로 감싸야 한다.
             <%--  session속성 msg 제거해서 1회만(1회용) 출력되도록 한다. --%>
             <c:remove var="msg" scope="session" />
         </c:if>

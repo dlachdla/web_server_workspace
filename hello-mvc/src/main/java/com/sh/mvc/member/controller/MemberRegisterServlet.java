@@ -33,7 +33,7 @@ public class MemberRegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 인코딩처리
-        req.setCharacterEncoding("utf-8");
+       // req.setCharacterEncoding("utf-8");
 
         // 2. 사용자 입력값 가져오기
         // id, password, name, birthday, email, gender, hobby
@@ -65,6 +65,6 @@ public class MemberRegisterServlet extends HttpServlet {
         req.getSession().setAttribute("msg", "회원가입 축하드립니다❤❤❤");
 
         // 4. view(forward) | redirect
-        resp.sendRedirect(req.getContextPath());
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }
