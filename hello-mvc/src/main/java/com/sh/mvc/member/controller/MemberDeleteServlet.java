@@ -30,7 +30,7 @@ public class MemberDeleteServlet extends HttpServlet {
         int result = memberService.deleteMember(id);
 
         // 세션가져오기
-        HttpSession session = req.getSession(false); // 새로 생성여부
+        HttpSession session = req.getSession();
 
         // 세션해제
         session.invalidate();

@@ -1,5 +1,6 @@
 package com.sh.mvc.member.controller;
 
+import com.sh.mvc.common.HelloMvcUtils;
 import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.service.MemberService;
 
@@ -67,7 +68,7 @@ public class MemberLoginServlet extends HttpServlet {
 
         // 2. 사용자입력값 가져오기
         String id = req.getParameter("id");
-        String password = req.getParameter("password");
+        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
         System.out.println(id + ", " + password);
 
         // 3. 업무로직 (이번 요청에 처리할 작업) -> 로그인(인증)
@@ -77,23 +78,25 @@ public class MemberLoginServlet extends HttpServlet {
         Member member = memberService.findById(id);
         System.out.println(member);
 
-        // 세션생성/가져오기
-        // getSession(), getSession(true) : 세션이 존재하지않으면 생성, 혹은 존재하는 세션을 반환
+        // 세션 생성/가져오기
+        // getSession(), getSession(true)
         HttpSession session = req.getSession();
-        if (member != null && password.equals(member.getPassword())) {
+        if(member != null && password.equals(member.getPassword())) {
             // 로그인 성공
             // pageContext, request, session, application 컨텍스트객체중에 login처리에 적합한 것은 session
-            // session 객체는 사용자가 서버첫접속부터 세션해제시까지 유효
-
+            // session객체는 사용자가 서버첫접속부터 세션해제시까지 유효
             session.setAttribute("loginMember", member);
-        } else {
+            resp.sendRedirect(req.getContextPath() + "/");
+        }
+        else {
             // 로그인 실패
-            session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다.💢");
+            session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다. 😎");
+            resp.sendRedirect(req.getContextPath() + "/member/memberLogin"); // GET redirect도 get 방식
         }
 
         // 4. view단처리 (forwarding) | redirect처리 (url변경 시)
         // DML 요청(post), 로그인요청등은 반드시 redirect로 처리해서 url을 변경해야한다.
-        resp.sendRedirect(req.getContextPath() + "/"); // "/" = 불필요한 리다이렉트를 줄이기위해 경로를 하나더줌
+//        resp.sendRedirect(req.getContextPath() + "/"); // "/" = 불필요한 리다이렉트를 줄이기위해 경로를 하나더줌
     }
 }
 
