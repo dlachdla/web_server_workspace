@@ -1,4 +1,4 @@
-package com.sh.mvc.member.model.entity;
+package com.sh.mvc.member.model.service.model.entity;
 
 
 import java.time.LocalDate;

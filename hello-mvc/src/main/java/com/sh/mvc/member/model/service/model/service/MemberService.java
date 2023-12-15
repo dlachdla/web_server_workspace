@@ -1,8 +1,8 @@
-package com.sh.mvc.member.model.service;
+package com.sh.mvc.member.model.service.model.service;
 
 
-import com.sh.mvc.member.model.dao.MemberDao;
-import com.sh.mvc.member.model.entity.Member;
+import com.sh.mvc.member.model.service.model.dao.MemberDao;
+import com.sh.mvc.member.model.service.model.entity.Member;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -121,5 +121,26 @@ public class MemberService {
         List<Member> members = memberDao.searchMember(session, param);
         session.close();
         return members;
+    }
+
+    public List<Member> findAll(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        List<Member> members = memberDao.findAll(session, param);
+        session.close();
+        return members;
+    }
+
+    public int getTotalCount() {
+        SqlSession session = getSqlSession();
+        int totalCount = memberDao.getTotalCount(session);
+        session.close();
+        return totalCount;
+    }
+
+    public int getTotalCount(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        int totalCount = memberDao.getTotalCount(session, param);
+        session.close();
+        return totalCount;
     }
 }

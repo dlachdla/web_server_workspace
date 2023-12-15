@@ -1,7 +1,7 @@
 package com.sh.mvc.common.Filter;
 
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.entity.Role;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.entity.Role;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

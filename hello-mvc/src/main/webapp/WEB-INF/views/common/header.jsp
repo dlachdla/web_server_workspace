@@ -1,6 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.sh.mvc.member.model.entity.Role" %>
+<%@ page import="com.sh.mvc.member.model.service.model.entity.Role" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -59,7 +59,7 @@
                             <a href="#" class="text-gray-900 hover:underline">About</a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-900 hover:underline">Post</a>
+                            <a href="${pageContext.request.contextPath}/board/boardList" class="text-gray-900 hover:underline">Board</a>
                         </li>
                         <%-- 관리자로 로그인한 경우만 노출하기 --%>
                         <c:if test="${loginMember.role == Role.A}">

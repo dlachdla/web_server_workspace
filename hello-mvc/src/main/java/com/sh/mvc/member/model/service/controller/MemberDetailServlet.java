@@ -1,4 +1,4 @@
-package com.sh.mvc.member.controller;
+package com.sh.mvc.member.model.service.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

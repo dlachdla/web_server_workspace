@@ -1,8 +1,8 @@
 package com.sh.mvc.admin.controller;
 
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.entity.Role;
-import com.sh.mvc.member.model.service.MemberService;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.entity.Role;
+import com.sh.mvc.member.model.service.model.service.MemberService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

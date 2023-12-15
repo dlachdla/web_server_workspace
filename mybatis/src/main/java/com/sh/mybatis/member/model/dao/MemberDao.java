@@ -19,7 +19,7 @@ public class MemberDao {
         return session.selectList("member.findByGender", gender);
     }
 
-    public List<Member> findAll(SqlSession session) {
+    public List<Member>findAll(SqlSession session) {
         return session.selectList("member.findAll");
     }
 

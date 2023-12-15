@@ -1,10 +1,10 @@
-package com.sh.mvc.member.controller;
+package com.sh.mvc.member.model.service.controller;
 
 import com.sh.mvc.common.HelloMvcUtils;
-import com.sh.mvc.member.model.entity.Gender;
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.entity.Role;
-import com.sh.mvc.member.model.service.MemberService;
+import com.sh.mvc.member.model.service.model.entity.Gender;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.entity.Role;
+import com.sh.mvc.member.model.service.model.service.MemberService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

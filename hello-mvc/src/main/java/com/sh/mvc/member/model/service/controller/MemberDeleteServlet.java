@@ -1,7 +1,7 @@
-package com.sh.mvc.member.controller;
+package com.sh.mvc.member.model.service.controller;
 
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.service.MemberService;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.service.MemberService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

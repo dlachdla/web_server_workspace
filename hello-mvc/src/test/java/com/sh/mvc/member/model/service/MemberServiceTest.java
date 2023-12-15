@@ -1,9 +1,9 @@
-package com.sh.mvc.member.service;
+package com.sh.mvc.member.model.service;
 
-import com.sh.mvc.member.model.service.MemberService;
-import com.sh.mvc.member.model.entity.Gender;
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.entity.Role;
+import com.sh.mvc.member.model.service.model.service.MemberService;
+import com.sh.mvc.member.model.service.model.entity.Gender;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.entity.Role;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -102,7 +102,7 @@ public class MemberServiceTest {
 
     }
 
-    //@Disabled
+    @Disabled
     @Order(1)
     @DisplayName("회원가입")
     @Test
@@ -124,7 +124,7 @@ public class MemberServiceTest {
         assertThat(member2.getPassword()).isEqualTo(password);
         assertThat(member2.getName()).isEqualTo(name);
     }
-    //@Disabled
+    @Disabled
     @Order(2)
     @DisplayName("회원가입 시 오류 체크")
     @Test
@@ -138,7 +138,7 @@ public class MemberServiceTest {
         assertThat(th).isInstanceOf(Exception.class);
 
     }
-   //@Disabled
+   @Disabled
     @Order(3)
     @DisplayName("회원정보 수정")
     @Test
@@ -171,7 +171,7 @@ public class MemberServiceTest {
         assertThat(member2.getEmail()).isEqualTo(newEmail);
         assertThat(member2.getPhone()).isEqualTo(newPhone);
     }
-    //@Disabled
+    @Disabled
     @Order(4)
     @DisplayName("회원 비밀번호 수정")
     @Test
@@ -188,7 +188,7 @@ public class MemberServiceTest {
         assertThat(member1.getPassword()).isEqualTo(newPassword);
 
     }
-    //@Disabled
+    @Disabled
     @Order(5)
     @DisplayName("회원 권한 수정")
     @Test
@@ -205,7 +205,7 @@ public class MemberServiceTest {
         assertThat(member3.getRole()).isEqualTo(newRole);
 
     }
-    //@Disabled
+    @Disabled
     @Order(6)
     @DisplayName("회원 삭제")
     @Test

@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ page import="com.sh.mvc.member.model.entity.Role" %>--%>
-<%--<%@ page import="com.sh.mvc.member.model.entity.Gender" %>--%>
+<%--<%@ page import="entity.model.com.sh.mvc.member.model.service.Role" %>--%>
+<%--<%@ page import="entity.model.com.sh.mvc.member.model.service.Gender" %>--%>
 <%@ page import="com.sh.mvc.member.model.entity.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -109,5 +109,12 @@
     <input type="hidden" name="id">
     <input type="hidden" name="role">
 </form>
+
+
+<nav class="mb-8 flex justify-center">
+    <ul class="flex items-center -space-x-px h-8 text-sm">
+        ${pagebar}
+    </ul>
+</nav>
 <script src="${pageContext.request.contextPath}/js/admin/memberList.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -1,8 +1,8 @@
-package com.sh.mvc.member.controller;
+package com.sh.mvc.member.model.service.controller;
 
 import com.sh.mvc.common.HelloMvcUtils;
-import com.sh.mvc.member.model.entity.Member;
-import com.sh.mvc.member.model.service.MemberService;
+import com.sh.mvc.member.model.service.model.entity.Member;
+import com.sh.mvc.member.model.service.model.service.MemberService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -69,7 +69,7 @@ public class MemberLoginServlet extends HttpServlet {
         // 2. 사용자입력값 가져오기
         String id = req.getParameter("id");
         String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
-        System.out.println(id + ", " + password);
+ //       System.out.println(id + ", " + password);
 
         // 3. 업무로직 (이번 요청에 처리할 작업) -> 로그인(인증)
         // id/password - db에서 읽어온 데이터(member객체) 비교

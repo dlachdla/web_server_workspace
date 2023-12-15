@@ -1,5 +1,5 @@
 <%@ page import="java.util.Arrays" %>
-<%@ page import="com.sh.mvc.member.model.entity.Gender"%>
+<%@ page import="com.sh.mvc.member.model.service.model.entity.Gender"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

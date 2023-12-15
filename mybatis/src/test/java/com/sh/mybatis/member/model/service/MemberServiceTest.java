@@ -158,7 +158,6 @@ public class MemberServiceTest {
         member.setEmail(newEmail);
         member.setPhone(newPhone);
 
-
         int result = memberService.updateMember(member);
         assertThat(result).isGreaterThan(0);
 
