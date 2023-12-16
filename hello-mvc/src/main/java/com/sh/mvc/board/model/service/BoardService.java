@@ -2,9 +2,11 @@ package com.sh.mvc.board.model.service;
 
 import com.sh.mvc.board.model.dao.BoardDao;
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.member.model.service.model.entity.Member;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.sh.mvc.common.SqlSessionTemplate.getSqlSession;
 
@@ -19,7 +21,7 @@ public class BoardService {
         return boards;
     }
 
-    public Board findById(int id) {
+    public Board findById(long id) {
         SqlSession session = getSqlSession();
         Board board = boardDao.findById(session, id);
         session.close();
@@ -56,7 +58,7 @@ public class BoardService {
         return result;
     }
 
-    public int deleteBoard(int id) {
+    public int deleteBoard(long id) {
         int result = 0;
         SqlSession session = getSqlSession();
         try{
@@ -69,4 +71,21 @@ public class BoardService {
         }
         return result;
     }
+
+    public int totalCount() {
+        SqlSession session = getSqlSession();
+        int totalCount = boardDao.totalCount(session);
+        session.close();
+        return totalCount;
+
+    }
+
+    public List<Board> findAll(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        List<Board> boards = boardDao.findAll(session, param);
+        session.close();
+        return boards;
+    }
+
+
 }

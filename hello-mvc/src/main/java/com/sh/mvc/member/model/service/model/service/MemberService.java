@@ -130,7 +130,7 @@ public class MemberService {
         return members;
     }
 
-    public int getTotalCount() {
+    public int  getTotalCount() {
         SqlSession session = getSqlSession();
         int totalCount = memberDao.getTotalCount(session);
         session.close();

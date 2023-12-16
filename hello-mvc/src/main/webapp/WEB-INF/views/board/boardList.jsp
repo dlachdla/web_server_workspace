@@ -32,26 +32,21 @@
             </tr>
             </thead>
             <tbody>
+            <c:forEach items="${boards}" var="board" varStatus="vs">
             <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
-                <td class="px-6 py-4">Winter is coming...</td>
-                <td class="px-6 py-4">honggd</td>
-                <td class="px-6 py-4">1999/09/09</td>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${board.id}</th>
+                <td class="px-6 py-4">${board.content}</td>
+                <td class="px-6 py-4">${board.memberId}</td>
+                <td class="px-6 py-4">
+                     <fmt:parseDate value="${board.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
+                     <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd"/>
+                </td>
                 <td class="px-6 py-4">
                     <img class="w-[16px]" src="../images/file.png" alt="">
                 </td>
-                <td class="px-6 py-4">10</td>
+                <td class="px-6 py-4">${board.readCount}</td>
             </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">2</th>
-                <td class="px-6 py-4">Winter was gone...</td>
-                <td class="px-6 py-4">honggd</td>
-                <td class="px-6 py-4">1999/09/09</td>
-                <td class="px-6 py-4">
-                    <img class="w-[16px]" src="../images/file.png" alt="">
-                </td>
-                <td class="px-6 py-4">10</td>
-            </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>
@@ -61,6 +56,7 @@
     <nav aria-label="Page navigation example">
         <ul class="flex items-center -space-x-px h-8 text-sm">
             <%-- 생성한 pagebar --%>
+            ${pagebar}
         </ul>
     </nav>
 </div>

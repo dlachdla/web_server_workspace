@@ -48,4 +48,18 @@
             id = #{id}
     </delete>
 
+    <select id="totalCount" resultType="_int">
+        select
+            count(*)
+        from
+            board
+    </select>
+
+    <select id="findAllPage" resultType="board">
+        select
+            *
+        from
+            board
+    </select>
+
 </mapper>
