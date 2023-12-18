@@ -7,6 +7,7 @@
     <!-- 내부에 필요한 설정 작성 -->
     <properties resource="datasource.properties"></properties>
     <!-- properties태그 : 외부 properties파일의 내용을 불러 올 때 사용 -->
+
     <settings>
         <!-- NULL데이터가 전달된 경우 NULL값으로 처리 -->
         <setting name="jdbcTypeForNull" value="NULL"/>

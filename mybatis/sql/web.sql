@@ -42,16 +42,16 @@ insert into member
 values('admin','1234','관리자','A','M', to_date('19971020','yyyymmdd'), 'admin@naver.com', '01044441234', '게임,독서',default, default);
 
 
-select * from member;
+select * from member where id = 'abcde';
 commit;
 
 --delete from member where id in ('leess', 'sejong');
 update
     member
 set
-    password = 'E0jrzcf+lMpxXNOFySXdpV0ZduTNjT3wTwLA0/5hoLRmr+W8EL6D7v+YN3kWGmrEEimasiH+ZAHABakRbPzXLQ=='
+    password = 'dwscFdjHOBrdrPjdDgS59PgOfvTWEJs6jv/TDZI7n4BpvufqaQmm6Auu/3mNrotq1CnZC7H5Z+Lfh/GazpRRKw=='
 where
-    id = 'admin';
+    id = 'qwerty';
 
 -- 회원추가
 Insert into WEB.MEMBER (ID,PASSWORD,NAME,ROLE,GENDER,BIRTHDAY,EMAIL,PHONE,HOBBY,POINT,REG_DATE) values ('encrypten_man','b5fMEM1PXQznhG6q+YA+t03cAhGSXAXwvU53Nn1BGiX3ta1Io+OBrDdcMSO0FNsGHq2F2yFZuDM0o4VMRct05Q==','암호화','U','M',to_date('91/02/03','RR/MM/DD'),null,'01012341243',null,1000,to_date('18/03/24','RR/MM/DD'));
@@ -221,7 +221,7 @@ create table board (
 );
 create sequence seq_board_id;
 
-
+drop table board;
 -- 첨부파일을 서버컴퓨터에 저장, 저장된 파일에 대한 정보만 db테이블에 저장한다.
 create table attachment (
                             id number,

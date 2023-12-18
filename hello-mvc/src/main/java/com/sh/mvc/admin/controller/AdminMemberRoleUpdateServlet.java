@@ -21,7 +21,7 @@ public class AdminMemberRoleUpdateServlet extends HttpServlet {
         // 1. 사용자입력값 처리
         String id = req.getParameter("id");
         String _role = req.getParameter("role");
-        Role role = Role.valueOf(_role);
+        Role role = Role.valueOf(_role); // String -> enum
         Member member = new Member();
         member.setId(id);
         member.setRole(role);
