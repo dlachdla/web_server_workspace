@@ -119,25 +119,30 @@
             count(*)
         from
             member
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
     </select>
 
     <!-- 식별자(컬럼, 테이블명) 작성시 ${}문법을 사용할 것. -->
-    <select id="searchMember" resultType="member">
-        select
-        *
-        from
-        member
-        where
-        ${searchType} like '%' || #{searchKeyword} || '%'
-    </select>
+<!--    <select id="searchMember" resultType="member">-->
+<!--        select-->
+<!--        *-->
+<!--        from-->
+<!--        member-->
+<!--        where-->
+<!--        ${searchType} like '%' || #{searchKeyword} || '%'-->
+<!--    </select>-->
 
-    <select id="getTotalCount2" resultType="_int">
-        select
-            count(*)
-        from
-            member
-        where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-    </select>
+<!--    <select id="getTotalCount2" resultType="_int">-->
+<!--        select-->
+<!--            count(*)-->
+<!--        from-->
+<!--            member-->
+<!--        where-->
+<!--            ${searchType} like '%' || #{searchKeyword} || '%'-->
+<!--    </select>-->
 
 </mapper>

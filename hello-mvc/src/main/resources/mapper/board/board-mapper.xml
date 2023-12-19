@@ -10,21 +10,70 @@
         from
             board
     </select>
-
-    <select id="findById" resultType="board">
+<!--
+    mybatis를 이용해서 조인쿼리
+        - resultType 대신 resultMap 사용
+        - 1 : n 관계 <collection>사용
+        - 1 : 1 관계 <association>사용
+-->
+    <select id="findById" resultMap="boardVoMap">
         select
-            *
-        from
-            board
-        where
-            id = #{id}
+             b.*,
+             a.id attach_id,
+             a.board_id,
+             a.original_filename,
+             a.renamed_filename,
+             a.reg_date attach_reg_date
+         from
+             board b left join attachment a
+               on b.id = a.board_id
+         where
+             b.id = #{id}
     </select>
+    <!--
+        <id/> 식별자 컬럼
+        <result/> 식별자가 아닌 컬럼
+        <collection/> 1:n관계에서 n에 해당하는 속성 처리(List)
+        <association/> 1:1관계에서 상대1에 해당하는 속성처리(vo)
+    -->
+    <resultMap id="boardVoMap" type="boardVo">
+            <id column="id" property="id"/>
+            <result column="title" property="title"/>
+            <result column="member_id" property="memberId"/>
+            <result column="content" property="content"/>
+            <result column="read_count" property="readCount"/>
+            <result column="reg_date" property="regDate"/>
+            <collection property="attachments" ofType="attachment">
+                <id column="attach_id" property="id"/>
+                <result column="board_id" property="boardId"/>
+                <result column="original_filename" property="originalFilename"/>
+                <result column="renamed_filename" property="renamedFilename"/>
+                <result column="attach_reg_date" property="regDate"/>
+            </collection>
+    </resultMap>
 
     <insert id="insertBoard">
         insert into
-            board
+        board
         values (
-                   seq_board_id.nextval, #{title}, #{memberId}, #{content}, default, default
+        seq_board_id.nextval ,#{title} ,#{memberId} ,#{content} ,default ,default
+        )
+        <selectKey order="AFTER" resultType="_int" keyProperty="id">
+            select
+                seq_board_id.currval
+            from
+                 dual
+        </selectKey>
+    </insert>
+
+    <insert id="insertAttachment">
+        insert into
+            attachment(id, board_id, original_filename, renamed_filename)
+        values (
+                   seq_attachment_id.nextval,
+                   #{boardId},
+                   #{originalFilename},
+                   #{renamedFilename}
                )
     </insert>
 
@@ -55,11 +104,14 @@
             board
     </select>
 
-    <select id="findAllPage" resultType="board">
+    <select id="findAllPage" resultType="boardVo">
         select
-            *
+            b.*,
+            (select count(*) from attachment where board_id = b.id) attach_count
         from
-            board
+            board b
+        order by
+            id desc
     </select>
 
 </mapper>

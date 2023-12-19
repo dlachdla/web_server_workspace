@@ -20,7 +20,8 @@ import java.io.IOException;
         "/member/memberDetail",
         "/member/memberUpdate",
         "/member/memberDelete",
-        "/member/memberUpdate"
+        "/member/memberUpdate",
+        "/board/boardCreate"
 })
 public class AuthenticationFilter extends HttpFilter {
     @Override

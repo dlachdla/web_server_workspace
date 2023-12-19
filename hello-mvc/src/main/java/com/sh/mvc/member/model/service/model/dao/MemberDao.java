@@ -71,7 +71,7 @@ public class MemberDao {
         // 건너뛸 회원수
         int offset = (page - 1) * limit;
         RowBounds rowBounds = new RowBounds(offset, limit);
-        return session.selectList("member.findAllPage", null, rowBounds);
+        return session.selectList("member.findAllPage", param, rowBounds);
     }
 
     public int getTotalCount(SqlSession session) {
@@ -79,6 +79,6 @@ public class MemberDao {
     }
 
     public int getTotalCount(SqlSession session, Map<String, Object> param) {
-        return session.selectOne("member.getTotalCount2", param);
+        return session.selectOne("member.getTotalCount", param);
     }
 }

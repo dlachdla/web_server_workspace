@@ -167,4 +167,8 @@ public class HelloMvcUtils {
 
         return pagebar.toString();
     }
+
+    public static String convertLineFeedToBr(String string) {
+        return string.replaceAll("\n", "<br/>");
+    }
 }

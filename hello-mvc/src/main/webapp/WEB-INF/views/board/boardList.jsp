@@ -16,9 +16,14 @@
             게시판
         </h1>
     </div>
-    <div class="flex justify-end">
-        <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">글쓰기</button>
-    </div>
+    <c:if test="${loginMember != null}">
+        <div class="flex justify-end">
+            <button
+                    type="button"
+                    onclick="location.href = '${pageContext.request.contextPath}/board/boardCreate';"
+                    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">글쓰기</button>
+        </div>
+    </c:if>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -35,14 +40,18 @@
             <c:forEach items="${boards}" var="board" varStatus="vs">
             <tr class="odd:bg-white even:bg-gray-50 border-b ">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${board.id}</th>
-                <td class="px-6 py-4">${board.content}</td>
+                <td class="px-6 py-4">
+                    <a href="${pageContext.request.contextPath}/board/boardDetail?id=${board.id}" class="hover:underline">${board.title}</a>
+                </td>
                 <td class="px-6 py-4">${board.memberId}</td>
                 <td class="px-6 py-4">
                      <fmt:parseDate value="${board.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
                      <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd"/>
                 </td>
                 <td class="px-6 py-4">
-                    <img class="w-[16px]" src="../images/file.png" alt="">
+                    <c:if test="${board.attachCount gt 0}">
+                        <img class="w-[16px]" src="../images/file.png" alt="">
+                    </c:if>
                 </td>
                 <td class="px-6 py-4">${board.readCount}</td>
             </tr>

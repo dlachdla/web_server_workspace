@@ -2,6 +2,7 @@ package com.sh.mvc.board;
 
 import com.sh.mvc.board.model.entity.Board;
 import com.sh.mvc.board.model.service.BoardService;
+import com.sh.mvc.board.model.vo.BoardVo;
 import com.sh.mvc.common.HelloMvcUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -63,7 +64,10 @@ public class BoardServiceTest {
         String memmberId = "sinsa";
         String content = "게시글등록했습니다";
 
-        Board board = new Board(0, title, memmberId, content, 0, null);
+        BoardVo board = new BoardVo();
+        board.setTitle("제목");
+        board.setContent("내용");
+
         int result = boardService.insertBoard(board);
         assertThat(result).isGreaterThan(0);
 
@@ -119,7 +123,7 @@ public class BoardServiceTest {
         int limit = 5;
         Map<String, Object> param = Map.of("page", page, "limit", limit);
 
-        List<Board> boards = boardService.findAll(param);
+        List<BoardVo> boards = boardService.findAll(param);
         assertThat(boards).isNotNull().isNotEmpty();
 
         boards.forEach((board) -> {
