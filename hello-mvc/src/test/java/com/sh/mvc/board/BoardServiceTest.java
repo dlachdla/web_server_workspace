@@ -78,7 +78,7 @@ public class BoardServiceTest {
     @Test
     public void test4(){
         int id = 61;
-        Board board = boardService.findById(id);
+        BoardVo board = boardService.findById(id);
         String newContent = "게시글을수정했습니다";
         String newTitle = "안녕하세요. 제목수정했습니다";
         board.setContent(newContent);

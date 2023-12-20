@@ -18,17 +18,21 @@
 -->
     <select id="findById" resultMap="boardVoMap">
         select
-             b.*,
-             a.id attach_id,
-             a.board_id,
-             a.original_filename,
-             a.renamed_filename,
-             a.reg_date attach_reg_date
-         from
-             board b left join attachment a
-               on b.id = a.board_id
-         where
-             b.id = #{id}
+            b.*,
+            m.name member_name,
+            a.id attach_id,
+            a.board_id,
+            a.original_filename,
+            a.renamed_filename,
+            a.reg_date attach_reg_date
+        from
+            board b
+                left join member m
+                          on b.member_id = m.id
+                left join attachment a
+                          on b.id = a.board_id
+        where
+            b.id = #{id}
     </select>
     <!--
         <id/> 식별자 컬럼
@@ -43,6 +47,10 @@
             <result column="content" property="content"/>
             <result column="read_count" property="readCount"/>
             <result column="reg_date" property="regDate"/>
+        <association property="member" javaType="member">
+            <id column="member_id" property="id"/>
+            <result column="member_name" property="name"/>
+        </association>
             <collection property="attachments" ofType="attachment">
                 <id column="attach_id" property="id"/>
                 <result column="board_id" property="boardId"/>
@@ -51,6 +59,15 @@
                 <result column="attach_reg_date" property="regDate"/>
             </collection>
     </resultMap>
+
+    <update id="updateBoardReadCount">
+        update
+            board
+        set
+            read_count = read_count + 1
+        where
+            id = #{id}
+    </update>
 
     <insert id="insertBoard">
         insert into

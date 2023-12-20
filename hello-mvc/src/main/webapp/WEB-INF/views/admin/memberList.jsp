@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ page import="entity.model.com.sh.mvc.member.model.service.Role" %>--%>
 <%--<%@ page import="entity.model.com.sh.mvc.member.model.service.Gender" %>--%>
-<%@ page import="com.sh.mvc.member.model.entity.*" %>
+<%@ page import="com.sh.mvc.member.model.service.model.entity.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>

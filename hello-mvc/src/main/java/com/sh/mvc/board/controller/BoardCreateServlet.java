@@ -35,7 +35,7 @@ public class BoardCreateServlet extends HttpServlet {
      * 2. form[method=post][entype=multipart/form-data] 설정
      * 3. DistFileItemFactary / ServletFileUpload 요청처리
      *      - 저장경로
-     *      - 파일크기
+     *      - 파일최대크기
      *
      * @param req
      * @param resp
@@ -47,17 +47,20 @@ public class BoardCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         // 1. 사용자 입력값처리 및 파일업로드
+        // 경로설정
         File repository = new File("C:\\workplace\\web_server_workspace\\hello-mvc\\src\\main\\webapp\\upload\\board");
 
+        // 사이즈설정
         int sizeThreshold = 10 * 1024 * 1024; // 10mb (1mb = 1024kb, 1kb = 1024b)
 
+        // 메모리나 파일로 업로드파일을 보관하는 FileItem의 Factory설정
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setRepository(repository);
         factory.setSizeThreshold(sizeThreshold);
 
         BoardVo board = new BoardVo();
 
-        // ServletFileUpLoad실제요청을 핸들링할 객체
+        // ServletFileUpLoad실제요청을 핸들링할 객체 생성
         //  ServletFileUpload클래스는 다음의 두 메서드를 이용해서 한번에 업로드 할 수 있는
         //  전체 파일의 크기 및 각 파일별로 업로드 할수 있는 파일의 크기를 설정할수있음.
         ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
@@ -68,7 +71,8 @@ public class BoardCreateServlet extends HttpServlet {
 
             for (FileItem item : fileItemList) {
                 String name = item.getFieldName(); // input[name] = upFile
-                if (item.isFormField()) {
+                // isFormField -> type = file 타입이 파일인지 여부확인
+                if (item.isFormField()) { // 텍스트 입력인경우
                     // 일반 텍스트필드 : Board객체에 설정
                     String value = item.getString("utf-8");
                     System.out.println(name + " = " + value);
@@ -84,10 +88,8 @@ public class BoardCreateServlet extends HttpServlet {
                         System.out.println("파일 : " + originalFilename);
                         System.out.println("크기 : " + item.getSize() + " byte");
 
-
-
                         int dotIndex = originalFilename.lastIndexOf("."); // 확장자
-                        String ext = dotIndex > -1 ? originalFilename.substring(dotIndex) : ""; // .jsp
+                        String ext = dotIndex > -1 ? originalFilename.substring(dotIndex) : ""; // .jsp자르기
 
                         UUID uuid = UUID.randomUUID(); // 고유한 문자열 토큰 발급
                         String renamedFilename = uuid + ext; // 저장된 파일명 (파일 덮어쓰기, 인코딩이슈 방지) 새로운 이름
@@ -115,7 +117,7 @@ public class BoardCreateServlet extends HttpServlet {
         int result = boardService.insertBoard(board);
         req.getSession().setAttribute("msg", "게시글을 성공적으로 등록했습니다 😀");
 
-        // 3. redirecr 목록페이지
+        // 3. redirect 목록페이지
         resp.sendRedirect(req.getContextPath() + "/board/boardList");
     }
 }

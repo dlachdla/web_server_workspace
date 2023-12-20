@@ -42,7 +42,7 @@ insert into member
 values('admin','1234','관리자','A','M', to_date('19971020','yyyymmdd'), 'admin@naver.com', '01044441234', '게임,독서',default, default);
 
 
-select * from member where id = 'abcde';
+select * from member where role = 'A';
 commit;
 
 --delete from member where id in ('leess', 'sejong');
@@ -316,7 +316,63 @@ select
     count(*)
 from
     board;
+    
+-- 첨부파일이 있는 게시글 조회
+select
+    b.*,
+    (select count(*) from attachment where board_id = b.id) attach_count
+from
+    board b;
 
+-- 게시글 상세보기
+-- 1.board 조회 + attachment 조회
+select * from board where id = 94;
+select * from attachment where board_id = 94;
+
+-- 2. 조회쿼리
+select 
+        b.*,
+        m.name member_name,
+        a.id attach_id,
+        a.board_id,
+        a.original_filename,
+        a.renamed_filename,
+        a.reg_date attach_reg_date
+from
+    board b
+        left join member m
+            on b.member_id = m.id
+        left join attachment a
+            on b.id = a.board_id
+where
+    b.id = 62;
+    
+    CREATE TABLE TB_USER(
+
+USER_NO NUMBER PRIMARY KEY,
+
+USER_ID VARCHAR2(50) UNIQUE NOT NULL,
+
+USER_NAME VARCHAR2(50) NOT NULL,
+
+USER_AGE NUMBER NOT NULL
+
+);
+
+CREATE SEQUENCE SEQ_UNO;
+
+select * from tb_user;
+
+
+-- 샘플 데이터 삽입
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'gd_hong', '홍길동', 20);
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'sh_han', '한소희', 28);
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'jm_park', '지민', 27);
+
+COMMIT;
 
 
 

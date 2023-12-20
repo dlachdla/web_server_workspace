@@ -21,14 +21,45 @@ public class BoardService {
         session.close();
         return boards;
     }
-
-    public BoardVo findById(long id) {
+    public BoardVo findById(long id, boolean hasRead) {
         SqlSession session = getSqlSession();
-        BoardVo board = boardDao.findById(session, id);
-        session.close();
+        BoardVo board = null;
+        int result = 0;
+
+        try {
+            // 조회수 증가처리
+            if (!hasRead) // 읽을때만
+                result = boardDao.updateBoardReadCount(session, id);
+
+            // 조회
+            board = boardDao.findById(session, id);
+
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+
+        }
         return board;
     }
+    /**
+     * 조회수 상관없이 게시글 조회해야하는 경우는 조회수를 안올려야하니까 (수정할때같은것)
+     *
+     * @param id
+     * @return
+     */
+    public BoardVo findById(long id) {
+       return findById(id, true);
+    }
 
+    /**
+     * 트랜젝션 관리
+     *
+     * @param board
+     * @return
+     */
     public int insertBoard(BoardVo board) {
         int result = 0;
         SqlSession session = getSqlSession();
@@ -55,11 +86,22 @@ public class BoardService {
         return result;
     }
 
-    public int UpdateBoard(Board board) {
+        public int UpdateBoard(BoardVo board) {
         int result = 0;
         SqlSession session = getSqlSession();
         try{
+            // board테이블 수정
             result = boardDao.updateBoard(session, board);
+
+            // attachment 테이블 등록
+            List<Attachment> attachments = board.getAttachments();
+            if(!attachments.isEmpty()) {
+                for (Attachment attach : attachments) {
+                    attach.setBoardId(board.getId());
+                    result = boardDao.insertAttachment(session, attach);
+                }
+            }
+
             session.commit();
         } catch (Exception e){
             session.rollback();
