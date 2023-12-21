@@ -1,4 +1,4 @@
-package com.sh.mvc.board;
+package com.sh.mvc.board.service;
 
 import com.sh.mvc.board.model.entity.Board;
 import com.sh.mvc.board.model.service.BoardService;

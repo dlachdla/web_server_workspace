@@ -374,7 +374,71 @@ INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'jm_park', '지민', 27);
 
 COMMIT;
 
+-- 댓글 기능구현
+create table board_Comment (
+    id number,
+    board_id number,
+    member_id varchar(20),
+    content varchar(2000),
+    comment_level number default 1, -- 댓글인경우 1, 대댓글인 경우 2
+    parent_comment_id number, -- 댓글인경우 null, 대댓글인 경우 부모댓글id
+    reg_Date date default sysdate,
+    constraints pk_board_comment_id primary key(id),
+    constraints fk_board_comment_board_id foreign key(board_id) references board(id) on delete cascade,
+    constraints fk_board_Comment_member_id foreign key(member_id) references member(id) on delete set null,
+    constraints fk_board_parent_comment_id foreign key(parent_comment_id) references board_comment(id) on delete cascade
+);
+create sequence seq_board_comment_id;
 
+-- 99번 게시판 댓글 데이터
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'abcde' , ' 좋은 글 잘봤어요' , default, null, default);
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'opqr' , ' 활력을 얻고 가요' , default, null, default);
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'admin' , ' 이달의 글로 선정되었습니다. 축하합니다' , default, null, default);
+-- 대댓글
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'qwerty' , '읽어주셔서 감사합니다~' , 2, 1, default);
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'qwerty' , '활력을 어디서 얻으셨어요?' , 2, 2, default);
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'qwerty' , '감사합니다' , 2, 3, default);
+insert into board_comment
+values(seq_board_comment_id.nextval, 99, 'opqr' , '첨부파일이 훌륭합니다' , 2, 2, default);
 
+select * from board_comment;
+delete from board_comment where id>'8';
 
+-- 계층형쿼리
+-- 행과 행을 부모/자식관계로 연결해서 tree구조의 순서로 결과집합을 반환
+-- 계층구조의 데이터 표현에 적합, 댓글, 조직도, 메뉴등
+-- start with 루트 부모행을 지정하는 조건절
+-- connect by 부조/자식을 연결하는 조건절. prior를 부모행의 컬럼 앞에 작성
+-- level 가상컬럼(계츨레벨)을 제공
+-- order siblings by컬럼 계층형 쿼리 전용 정렬
+select 
+    *
+from
+    board_comment
+where
+    board_id = 99
+start with
+    comment_level = 1
+connect by
+    prior id = parent_comment_id
+order siblings by
+    id;
 
+select
+    lpad(' ', (level - 1) * 5) || content,
+    member_id,
+    level
+from
+    board_comment
+where
+    board_id = 99
+start with
+    comment_level = 1
+connect by
+    parent_comment_id = prior id;

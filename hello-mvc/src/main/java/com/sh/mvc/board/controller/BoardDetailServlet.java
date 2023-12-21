@@ -43,6 +43,7 @@ public class BoardDetailServlet extends HttpServlet {
         // 조회
         BoardVo board = boardService.findById(id, hasRead);
 
+
         // xss공격대비 escapeHtml처리
         String safeHtml = HelloMvcUtils.escapeHtml(board.getContent());
 

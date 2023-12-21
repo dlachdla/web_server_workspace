@@ -30,6 +30,7 @@
             <tr>
                 <th scope="col" class="px-6 py-3">번호</th>
                 <th scope="col" class="px-6 py-3">제목</th>
+                <th scope="col" class="px-6 py-3">댓글수</th>
                 <th scope="col" class="px-6 py-3">작성자</th>
                 <th scope="col" class="px-6 py-3">작성일</th>
                 <th scope="col" class="px-6 py-3">첨부파일</th>
@@ -42,6 +43,10 @@
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${board.id}</th>
                 <td class="px-6 py-4">
                     <a href="${pageContext.request.contextPath}/board/boardDetail?id=${board.id}" class="hover:underline">${fn:escapeXml(board.title)}</a>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">Dark</span>
+                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Red</span>
                 </td>
                 <td class="px-6 py-4">${board.memberId}</td>
                 <td class="px-6 py-4">

@@ -93,6 +93,8 @@ public class BoardUpdateServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        System.out.println(board);
+
 
         // 업무로직
         int result = boardService.UpdateBoard(board);

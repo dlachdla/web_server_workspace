@@ -3,9 +3,11 @@ package com.sh.mvc.board.model.service;
 import com.sh.mvc.board.model.dao.BoardDao;
 import com.sh.mvc.board.model.entity.Attachment;
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.board.model.entity.BoardComment;
 import com.sh.mvc.board.model.vo.BoardVo;
 import org.apache.ibatis.session.SqlSession;
 
+import javax.xml.stream.events.Comment;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +35,8 @@ public class BoardService {
 
             // 조회
             board = boardDao.findById(session, id);
+            List<BoardComment> comments = boardDao.findCommentByBoardId(session, id);
+            board.setComments(comments);
 
             session.commit();
         } catch (Exception e) {
@@ -68,6 +72,7 @@ public class BoardService {
             result = boardDao.insertBoard(session, board);
             System.out.println("BoardService#insertBoard : board#id = " + board.getId());
 
+
             // attachment 테이블에 등록
             List<Attachment> attachments = board.getAttachments();
             if (!attachments.isEmpty()) {
@@ -92,6 +97,14 @@ public class BoardService {
         try{
             // board테이블 수정
             result = boardDao.updateBoard(session, board);
+
+            // atachment 테이블 삭제
+            List<Long> delFiles = board.getDeFiles();
+            if (!delFiles.isEmpty()) {
+                for (Long id : delFiles) {
+                    boardDao.deleteAttachment(session, id);
+                }
+            }
 
             // attachment 테이블 등록
             List<Attachment> attachments = board.getAttachments();
@@ -142,4 +155,18 @@ public class BoardService {
     }
 
 
+    public int insertBoardComment(BoardComment comment) {
+        int result = 0;
+        SqlSession session = getSqlSession();
+        try {
+            result = boardDao.insertBoardComment(session, comment);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+        return result;
+    }
 }

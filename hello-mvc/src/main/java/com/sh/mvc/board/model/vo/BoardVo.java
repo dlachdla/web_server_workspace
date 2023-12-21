@@ -2,6 +2,7 @@ package com.sh.mvc.board.model.vo;
 
 import com.sh.mvc.board.model.entity.Attachment;
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.board.model.entity.BoardComment;
 import com.sh.mvc.member.model.service.model.entity.Member;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,8 @@ public class BoardVo extends Board {
     private int attachCount; // 첨부파일 개수
     private List<Attachment> attachments = new ArrayList<>();
 
+    private List<Long> delFiles = new ArrayList<>();
+    private List<BoardComment> comments;
     public Member getMember() {
         return member;
     }
@@ -45,12 +48,41 @@ public class BoardVo extends Board {
         this.attachments = attachments;
     }
 
+    public List<Long> getDeFiles() {
+        return delFiles;
+    }
+
+    public void setDeFiles(List<Long> deFiles) {
+        this.delFiles = deFiles;
+    }
+
+    public List<BoardComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<BoardComment> comments) {
+        this.comments = comments;
+    }
+
+
+    public void setValue(String name, String value) {
+        switch (name) {
+            case "id" : setId(Long.parseLong(value)); break;
+            case "title" : setTitle(value); break;
+            case "memberId" : setMemberId(value); break;
+            case "content" : setContent(value); break;
+            case "delFile" : this.delFiles.add(Long.parseLong(value)); break;
+            default: throw new RuntimeException("부적절한 name값 : " + name);
+        }
+    }
     @Override
     public String toString() {
         return "BoardVo{" +
                 "member=" + member +
                 ", attachCount=" + attachCount +
                 ", attachments=" + attachments +
+                ", delFiles=" + delFiles +
+                ", comments=" + comments +
                 "} " + super.toString();
     }
 }

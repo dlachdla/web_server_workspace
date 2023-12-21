@@ -25,7 +25,14 @@
             </div>
             <div class="sm:col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900" for="upFile">첨부파일</label>
-                <input type="file" id="upFile" name="upFile" class="block p-2.5 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                <input type="file" id="upFile" name="upFile" multiple class="block p-2.5 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+            </div>
+            <div class="sm:col-span-2">
+                <c:forEach items="${board.attachments}" var="attach" varStatus="vs">
+                    <label for="delFile${vs.count}">${attach.originalFilename} 삭제</label>
+                    <input type="checkbox" name="delFile" id="delFile${vs.count}" value="${attach.id}">
+                    <br>
+                </c:forEach>
             </div>
             <div class="sm:col-span-2">
                 <label for="content" class="block mb-2 text-sm font-medium text-gray-900">내용</label>

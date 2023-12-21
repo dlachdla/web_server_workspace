@@ -131,4 +131,62 @@
             id desc
     </select>
 
+    <delete id="deleteAttachment">
+        delete from
+            attachment
+        where
+            id = #{id}
+    </delete>
+
+    <select id="findCommentByBoardId" resultType="boardComment">
+        select
+            *
+        from
+            board_comment
+        where
+            board_id = #{boardId}
+            start with
+            comment_level = 1
+        connect by
+            prior id = parent_comment_id
+        order siblings by
+            id
+    </select>
+
+    <insert id="insertBoardComment">
+        insert into
+            board_comment
+        values(
+               seq_board_comment_id.nextval,
+               #{boardId},
+               #{memberId},
+               #{content},
+               #{commentLevel},
+               #{parentCommentId},
+               default
+              )
+        <selectKey order="AFTER" resultType="_long" keyProperty="id">
+        select
+            seq_board_comment_id.currval
+        from
+            dual
+        </selectKey>
+    </insert>
+
+    <select id="findCommentById" resultType="boardComment">
+    select
+        *
+    from
+        board_comment
+    where
+        id = #{id}
+    </select>
+
+    <delete id="deleteBoardComment">
+        delete from
+            board_comment
+        where
+            id = #{id}
+    </delete>
+
 </mapper>
