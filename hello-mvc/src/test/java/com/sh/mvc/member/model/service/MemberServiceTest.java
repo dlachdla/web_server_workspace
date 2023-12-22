@@ -92,6 +92,7 @@ public class MemberServiceTest {
     @Test
     public void  test6(){
         String gender = "M";
+
         List<Member> members = memberService.findByGender(gender);
         assertThat(members).isNotNull().isNotEmpty();
         members.forEach((member) -> {

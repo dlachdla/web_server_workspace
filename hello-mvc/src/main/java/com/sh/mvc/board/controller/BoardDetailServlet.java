@@ -1,6 +1,7 @@
 package com.sh.mvc.board.controller;
 
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.board.model.exception.BoardException;
 import com.sh.mvc.board.model.service.BoardService;
 import com.sh.mvc.board.model.vo.BoardVo;
 import com.sh.mvc.common.HelloMvcUtils;
@@ -30,6 +31,7 @@ public class BoardDetailServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
         // 1. 사용자 입력값 처리
         long id = Long.parseLong(req.getParameter("id"));
         System.out.println(id);
@@ -64,6 +66,15 @@ public class BoardDetailServlet extends HttpServlet {
 
         // 3. forward
         req.getRequestDispatcher("/WEB-INF/views/board/boardDetail.jsp").forward(req, resp);
+        } catch (Exception e) {
+            // 예외 전환해서 던지기 : 사용자친화적 메세지, 원인예외 wrapping
+            try {
+                throw new BoardException("게시글 상세보기 오류", e);
+            } catch (BoardException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
     }
 
     private List<String> getBoardCookieValues(Cookie[] cookies) {
