@@ -32,47 +32,43 @@ public class BoardDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-        // 1. 사용자 입력값 처리
-        long id = Long.parseLong(req.getParameter("id"));
-        System.out.println(id);
+            // 1. 사용자 입력값 처리
+            long id = Long.parseLong(req.getParameter("id"));
+            System.out.println(id);
 
-        // 2. 업무로직
-        // 조회수 관련처리
-        Cookie[] cookies = req.getCookies();
-        List<String> boardCookieValues = getBoardCookieValues(cookies);
-        boolean hasRead = boardCookieValues.contains(String.valueOf(id)); // valueOf -> long값을 문자열로
+            // 2. 업무로직
+            // 조회수 관련처리
+            Cookie[] cookies = req.getCookies();
+            List<String> boardCookieValues = getBoardCookieValues(cookies);
+            boolean hasRead = boardCookieValues.contains(String.valueOf(id)); // valueOf -> long값을 문자열로
 
-        // 조회
-        BoardVo board = boardService.findById(id, hasRead);
+            // 조회
+            BoardVo board = boardService.findById(id, hasRead);
 
 
-        // xss공격대비 escapeHtml처리
-        String safeHtml = HelloMvcUtils.escapeHtml(board.getContent());
+            // xss공격대비 escapeHtml처리
+            String safeHtml = HelloMvcUtils.escapeHtml(board.getContent());
 
-        // 개행문자 (\n) -> <br>
-        board.setContent(HelloMvcUtils.convertLineFeedToBr(safeHtml));
-        req.setAttribute("board", board);
-        System.out.println(board);
+            // 개행문자 (\n) -> <br>
+            board.setContent(HelloMvcUtils.convertLineFeedToBr(safeHtml));
+            req.setAttribute("board", board);
+            System.out.println(board);
 
-        // 응답 쿠키 생성
-        if (!hasRead) { // 읽었을때
-            boardCookieValues.add(String.valueOf(id)); // 현재 게시글 id를 추가
-            String value = String.join("/", boardCookieValues); // [12,34,56] -> "12/34/56"
-            Cookie cookie = new Cookie("board", value);
-            cookie.setMaxAge(365 * 24 * 60 * 60); // 1년동안 보관, 음수인경우 session종료시 삭제, 0인경우 즉시삭제
-            cookie.setPath(req.getContextPath() + "/board/boardDetail"); // 지정한 경로일때만 클라이언트에서 서버로 쿠키전송
-            resp.addCookie(cookie);
-        }
-
-        // 3. forward
-        req.getRequestDispatcher("/WEB-INF/views/board/boardDetail.jsp").forward(req, resp);
-        } catch (Exception e) {
-            // 예외 전환해서 던지기 : 사용자친화적 메세지, 원인예외 wrapping
-            try {
-                throw new BoardException("게시글 상세보기 오류", e);
-            } catch (BoardException ex) {
-                throw new RuntimeException(ex);
+            // 응답 쿠키 생성
+            if (!hasRead) { // 읽었을때
+                boardCookieValues.add(String.valueOf(id)); // 현재 게시글 id를 추가
+                String value = String.join("/", boardCookieValues); // [12,34,56] -> "12/34/56"
+                Cookie cookie = new Cookie("board", value);
+                cookie.setMaxAge(365 * 24 * 60 * 60); // 1년동안 보관, 음수인경우 session종료시 삭제, 0인경우 즉시삭제
+                cookie.setPath(req.getContextPath() + "/board/boardDetail"); // 지정한 경로일때만 클라이언트에서 서버로 쿠키전송
+                resp.addCookie(cookie);
             }
+
+            // 3. forward
+            req.getRequestDispatcher("/WEB-INF/views/board/boardDetail.jsp").forward(req, resp);
+        } catch (Exception e) {
+            // 예외 전환해서 던지기 : 사용자 친화적 메세지, 원인 예외 wrapping
+            throw new BoardException("게시글 상세보기 오류", e);
         }
 
     }

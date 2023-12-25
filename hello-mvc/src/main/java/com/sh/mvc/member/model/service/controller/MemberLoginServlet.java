@@ -93,6 +93,7 @@ public class MemberLoginServlet extends HttpServlet {
             // pageContext, request, session, application 컨텍스트객체중에 login처리에 적합한 것은 session
             // session객체는 사용자가 서버첫접속부터 세션해제시까지 유효
             session.setAttribute("loginMember", member);
+
             String location = req.getContextPath() + "/"; // 기본경로
             String next = (String) req.getSession().getAttribute("next");
             if (next != null) {

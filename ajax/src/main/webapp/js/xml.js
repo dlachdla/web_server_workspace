@@ -13,7 +13,7 @@ document.querySelector("#btn1").onclick = () => {
             console.log(xmlDoc); // xml문서를 파싱해서 document객체 반환
 
             const root = xmlDoc.querySelector(":root");
-            console.dir(root); // <books></books>
+            console.dir(root); // <books></books> // xml문서의 최상위 요소
             const value = root.getAttribute("myattr"); // 사용자속성
             console.log(value);
 
@@ -33,5 +33,5 @@ document.querySelector("#btn1").onclick = () => {
             });
 
         }
-    })
+    });
 };

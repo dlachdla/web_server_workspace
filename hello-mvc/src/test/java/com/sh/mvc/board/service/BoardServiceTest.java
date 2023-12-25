@@ -25,6 +25,7 @@ public class BoardServiceTest {
     @Test
     public void test1() {
         List<Board> boards = boardService.findAll();
+        System.out.println(boards);
         assertThat(boards).isNotNull().isNotEmpty();
 
         boards.forEach((board) -> {
@@ -41,22 +42,22 @@ public class BoardServiceTest {
     @DisplayName("게시글 한건조회")
     @Test
     public void test2(){
-        long id = 36;
-        Board member = boardService.findById(id);
-        System.out.println(member);
+        long id = 56;
+        BoardVo board = boardService.findById(id);
+        System.out.println(board);
 
-        assertThat(member).isNotNull();
+        assertThat(board).isNotNull();
 
-        assertThat(member.getId()).isGreaterThan(1);
-        assertThat(member.getTitle()).isNotNull();
-        assertThat(member.getMemberId()).isNotNull();
-        assertThat(member.getContent()).isNotNull();
-        assertThat(member.getReadCount()).isGreaterThanOrEqualTo(0);
-        assertThat(member.getRegDate()).isNotNull();
+        assertThat(board.getId()).isGreaterThan(1);
+        assertThat(board.getTitle()).isNotNull();
+        assertThat(board.getMemberId()).isNotNull();
+        assertThat(board.getContent()).isNotNull();
+        assertThat(board.getReadCount()).isGreaterThanOrEqualTo(0);
+        assertThat(board.getRegDate()).isNotNull();
 
     }
 
-    @Disabled
+//    @Disabled
     @DisplayName("게시글 등록")
     @Test
     public void test3(){
@@ -73,11 +74,11 @@ public class BoardServiceTest {
 
     }
 
-    @Disabled
+//    @Disabled
     @DisplayName("게시글 수정")
     @Test
     public void test4(){
-        int id = 61;
+        int id = 81;
         BoardVo board = boardService.findById(id);
         String newContent = "게시글을수정했습니다";
         String newTitle = "안녕하세요. 제목수정했습니다";
@@ -97,13 +98,14 @@ public class BoardServiceTest {
     @DisplayName("게시글 삭제")
     @Test
     public void test5(){
-        long id = 64;
-        Board board = boardService.findById(id);
+        long id = 57;
+        BoardVo board = boardService.findById(id);
+        System.out.println(board);
         assertThat(board).isNotNull();
 
         int result = boardService.deleteBoard(id);
         assertThat(result).isGreaterThan(0);
-        Board board1 = boardService.findById(id);
+        BoardVo board1 = boardService.findById(id);
         assertThat(board1).isNull();
     }
 

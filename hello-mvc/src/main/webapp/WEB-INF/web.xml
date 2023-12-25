@@ -13,14 +13,14 @@
   <!-- 4. 에러페이지 등록 -->
   <display-name>Archetype Created Web Application</display-name>
 
-  <error-page>
-    <exception-type>java.lang.Exception</exception-type>
-    <location>/WEB-INF/views/common/error.jsp</location>
-  </error-page>
+<!--  <error-page>-->
+<!--    <exception-type>java.lang.Exception</exception-type>-->
+<!--    <location>/WEB-INF/views/common/error.jsp</location>-->
+<!--  </error-page>-->
 
-  <error-page>
-    <error-code>404</error-code>
-    <location>/WEB-INF/views/common/404.jsp</location>
-  </error-page>
+<!--  <error-page>-->
+<!--    <error-code>404</error-code>-->
+<!--    <location>/WEB-INF/views/common/404.jsp</location>-->
+<!--  </error-page>-->
 
 </web-app>

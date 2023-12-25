@@ -320,7 +320,8 @@ from
 -- 첨부파일이 있는 게시글 조회
 select
     b.*,
-    (select count(*) from attachment where board_id = b.id) attach_count
+    (select count(*) from attachment where board_id = b.id) attach_count,
+    (select count(*) from board_comment where board_id = b.id) comment_count
 from
     board b;
 
@@ -390,26 +391,36 @@ create table board_Comment (
 );
 create sequence seq_board_comment_id;
 
+select
+    seq_board_comment_id.currval
+from
+    dual;
+
+select
+    seq_board_comment_id.nextval
+from
+    dual;
+
 -- 99번 게시판 댓글 데이터
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'abcde' , ' 좋은 글 잘봤어요' , default, null, default);
+values(seq_board_comment_id.nextval, 81, 'abcde' , ' 좋은 글 잘봤어요' , default, null, default);
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'opqr' , ' 활력을 얻고 가요' , default, null, default);
+values(seq_board_comment_id.nextval, 81, 'opqr' , ' 활력을 얻고 가요' , default, null, default);
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'admin' , ' 이달의 글로 선정되었습니다. 축하합니다' , default, null, default);
+values(seq_board_comment_id.nextval, 81, 'admin' , ' 이달의 글로 선정되었습니다. 축하합니다' , default, null, default);
 -- 대댓글
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'qwerty' , '읽어주셔서 감사합니다~' , 2, 1, default);
+values(seq_board_comment_id.nextval, 81, 'qwerty' , '읽어주셔서 감사합니다~' , 2, 1, default);
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'qwerty' , '활력을 어디서 얻으셨어요?' , 2, 2, default);
+values(seq_board_comment_id.nextval, 81, 'qwerty' , '활력을 어디서 얻으셨어요?' , 2, 2, default);
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'qwerty' , '감사합니다' , 2, 3, default);
+values(seq_board_comment_id.nextval, 81, 'qwerty' , '감사합니다' , 2, 3, default);
 insert into board_comment
-values(seq_board_comment_id.nextval, 99, 'opqr' , '첨부파일이 훌륭합니다' , 2, 2, default);
+values(seq_board_comment_id.nextval, 81, 'opqr' , '첨부파일이 훌륭합니다' , 2, 2, default);
 
 select * from board_comment;
 delete from board_comment where id>'8';
-
+commit;
 -- 계층형쿼리
 -- 행과 행을 부모/자식관계로 연결해서 tree구조의 순서로 결과집합을 반환
 -- 계층구조의 데이터 표현에 적합, 댓글, 조직도, 메뉴등
@@ -422,7 +433,7 @@ select
 from
     board_comment
 where
-    board_id = 99
+    board_id = 56
 start with
     comment_level = 1
 connect by
@@ -437,8 +448,10 @@ select
 from
     board_comment
 where
-    board_id = 99
+    board_id = 56
 start with
     comment_level = 1
 connect by
     parent_comment_id = prior id;
+
+commit;

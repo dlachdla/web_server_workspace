@@ -18,7 +18,7 @@ document.addEventListener('submit', (e) => {
             return;
         }
 
-        if(!/^(.|\n)+$/.test(content.value.trim())) {
+        if(!/^(.|\n)+$/.test(content.value.trim())) { // trim() : 빈문자열도 체크됨
             alert('댓글 내용을 작성해주세요. 😎');
             e.preventDefault();
             return;

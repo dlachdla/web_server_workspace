@@ -19,9 +19,7 @@
 <body>
     <div class="flex min-h-full flex-col items-center px-6 py-12">
         <h1 class="text-[300px]">☠</h1>
-        
         <p class="text-red-700">해당 페이지를 찾을 수 없습니다.</p>
-        <p class="text-red-700"><%= exception.getMessage() %></p>
         <p><a href="${pageContext.request.contextPath}" class="hover:underline text-blue-700">메인페이지로 돌아가기</a></p>
     </div>
 

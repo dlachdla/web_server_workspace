@@ -21,6 +21,19 @@ public class BoardVo extends Board {
 
     private List<Long> delFiles = new ArrayList<>();
     private List<BoardComment> comments;
+    private int commentCount; // 댓글개수
+
+    public BoardVo() {
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
     public Member getMember() {
         return member;
     }
@@ -63,6 +76,7 @@ public class BoardVo extends Board {
     public void setComments(List<BoardComment> comments) {
         this.comments = comments;
     }
+
 
 
     public void setValue(String name, String value) {

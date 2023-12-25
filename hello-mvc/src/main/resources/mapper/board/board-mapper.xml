@@ -10,7 +10,7 @@
         from
             board
     </select>
-<!--
+<!--d
     mybatis를 이용해서 조인쿼리
         - resultType 대신 resultMap 사용
         - 1 : n 관계 <collection>사용
@@ -124,7 +124,8 @@
     <select id="findAllPage" resultType="boardVo">
         select
             b.*,
-            (select count(*) from attachment where board_id = b.id) attach_count
+            (select count(*) from attachment where board_id = b.id) attach_count,
+            (select count(*) from board_comment where board_id = b.id) comment_count
         from
             board b
         order by

@@ -43,9 +43,16 @@
                     수정
                 </button>
                 <button type="button"
-                        class="px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200">
+                        class="px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200"
+                        onclick="confirm('정말 삭제하시겠습니까?💦') && document.boardDeleteFrm.submit()">
                     삭제
                 </button>
+                <form
+                    action="${pageContext.request.contextPath}/board/boardDelete"
+                    method="post"
+                    name="boardDeleteFrm">
+                    <input type="hidden" name="id" value="${board.id}">
+                </form>
             </div>
         </c:if>
     </div>
@@ -143,5 +150,6 @@
         </table>
     </div>
 </div>
+
 <script src="${pageContext.request.contextPath}/js/board/boardDetail.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

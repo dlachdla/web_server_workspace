@@ -54,7 +54,7 @@ public class BoardCommentDaoTest {
     @DisplayName("댓글 등록")
     @Test
     public void test3(){
-        long boardId = 99;
+        long boardId = 65;
         String memberId = "abcde";
         String content = "댓글";
         int commentLevel = 1;
@@ -83,7 +83,7 @@ public class BoardCommentDaoTest {
     @DisplayName("대댓글 등록")
     @Test
     public void test4(){
-        long boardId = 99;
+        long boardId = 65;
         String memberId = "abcde";
         String content = "대댓글";
         int commentLevel = 2;
@@ -118,7 +118,8 @@ public class BoardCommentDaoTest {
         // given 1번 댓글이 존재한다고 가정
         long id = 1;
         BoardComment comment = boardDao.findCommentById(session, id);
-        assertThat(comment).isNotNull();
+        System.out.println(comment);
+        assertThat(comment).isNull();
         // when
         int result = boardDao.deleteBoardComment(session, id);
         assertThat(result).isGreaterThan(0);

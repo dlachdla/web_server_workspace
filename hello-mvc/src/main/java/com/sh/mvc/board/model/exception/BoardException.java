@@ -1,6 +1,6 @@
 package com.sh.mvc.board.model.exception;
 
-public class BoardException extends Exception {
+public class BoardException extends RuntimeException {
     public BoardException() {
     }
 
