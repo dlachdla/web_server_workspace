@@ -23,7 +23,6 @@ public class BoardCommentDaoTest {
         this.boardDao = new BoardDao();
         this.session = getSqlSession();
 
-
     }
     @AfterEach
     private void tearDown() {

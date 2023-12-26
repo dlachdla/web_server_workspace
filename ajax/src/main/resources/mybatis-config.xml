@@ -57,6 +57,7 @@
     -->
     <mappers>
         <mapper resource="mapper/student/student-mapper.xml"/>
+        <mapper resource="mapper/celeb/celeb-mapper.xml"/>
     </mappers>
     <!-- mappers태그 : 사용하고자 하는 쿼리문의 정의된 mapper파일 등록   -->
 </configuration>

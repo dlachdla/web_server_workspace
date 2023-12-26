@@ -17,7 +17,7 @@ public class BoardService {
 
     private BoardDao boardDao = new BoardDao();
 
-    public List<Board> findAll() {
+    public List<Board>findAll() {
         SqlSession session = getSqlSession();
         List<Board> boards = boardDao.findAll(session);
         session.close();

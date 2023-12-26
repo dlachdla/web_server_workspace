@@ -11,6 +11,8 @@
   <!-- 2. 필터등록 -->
   <!-- 3. 리스너 등록 -->
   <!-- 4. 에러페이지 등록 -->
+  <!-- 5. session 등록 -->
+  <!-- 6. mima타입 등록 -->
   <display-name>Archetype Created Web Application</display-name>
 
 <!--  <error-page>-->
