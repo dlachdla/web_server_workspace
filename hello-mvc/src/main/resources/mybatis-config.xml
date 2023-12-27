@@ -61,6 +61,8 @@
     <mappers>
         <mapper resource="mapper/member/member-mapper.xml"/>
         <mapper resource="mapper/board/board-mapper.xml"/>
+        <mapper resource="mapper/photo/photo-mapper.xml"/>
+        <mapper resource="mapper/notification/notification-mapper.xml"/>
     </mappers>
     <!-- mappers태그 : 사용하고자 하는 쿼리문의 정의된 mapper파일 등록   -->
 </configuration>

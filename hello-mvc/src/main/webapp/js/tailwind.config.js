@@ -15,6 +15,22 @@ tailwind.config = {
                     "900": "#1e3a8a",
                     "950": "#172554"
                 }
+            },
+            keyframes: {
+                bell: {
+                    "0%, 50%": {
+                        transform: "rotate(0deg)",
+                    },
+                    "5%, 15%, 25%, 35%, 45%": {
+                        transform: "rotate(13deg)",
+                    },
+                    "10%, 20%, 30%, 40%": {
+                        transform: "rotate(-13deg)",
+                    },
+                },
+            },
+            animation: {
+                bell: "bell 2s infinite linear",
             }
         },
         container: {
